@@ -1,0 +1,17 @@
+#!groovy
+properties([disableConcurentBuilds])
+
+pipeline {
+	agent {
+		label 'master'
+	}
+	options {
+		buildDescarder(logRotator(numToKeepStr: '10', artifactNumToKeepStr: '10'))
+		timestamps()
+	}
+	stages {
+		stage("First step") {
+			bash 'ssh root@testhost \'hostname\''
+		}
+	}
+}
