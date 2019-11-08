@@ -12,7 +12,7 @@ pipeline {
 			steps {
 				echo "*********************** copy Dockerfile ***********************"
 				dir ('docker/toolbox') {
-					sh 'scp Dockerfile root@testhost'
+					sh 'scp Dockerfile root@testhost:~/'
 				}
 				echo "*********************** start building image ***********************"
 				sh 'ssh root@testhost \'docker build .\''
