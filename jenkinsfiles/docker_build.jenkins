@@ -10,10 +10,12 @@ pipeline {
 	stages {
 		stage("Create docker image") {
 			steps {
+				echo "*********************** copy Dockerfile ***********************"
+				dir ('docker/toolbox') {
+					sh 'scp Dockerfile root@testhost'
+				}
 				echo "*********************** start building image ***********************"
-//				dir ('docker/toolbox') {
-//					sh 'docker buils .'
-//				}
+				sh 'ssh root@testhost \'docker build .\''
 			}
 		}
 	}
