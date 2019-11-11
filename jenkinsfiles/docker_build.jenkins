@@ -1,7 +1,7 @@
 #!groovy
 pipeline {
 	agent {
-		label 'master'
+		label 'slave1'
 	}
 	options {
 		buildDiscarder(logRotator(numToKeepStr: '10', artifactNumToKeepStr: '10'))
@@ -10,12 +10,10 @@ pipeline {
 	stages {
 		stage("Create docker image") {
 			steps {
-				echo "*********************** copy Dockerfile ***********************"
-				dir ('docker/toolbox') {
-					sh 'scp Dockerfile root@testhost:~/'
-				}
 				echo "*********************** start building image ***********************"
-				sh 'ssh root@testhost \'docker build .\''
+				dir ('docker/toolbox') {
+					sh 'docker build .'
+				}
 			}
 		}
 	}
